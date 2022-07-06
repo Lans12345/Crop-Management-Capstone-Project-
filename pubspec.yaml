@@ -46,6 +46,7 @@ dependencies:
   firebase_storage_web:
   webview_flutter:
   get_storage:
+  mailer:
 
 
 dev_dependencies:

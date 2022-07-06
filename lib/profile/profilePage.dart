@@ -1,3 +1,4 @@
+import 'package:crop/home/homePage.dart';
 import 'package:crop/widgets/imageWidget.dart';
 import 'package:crop/widgets/textWidget.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +104,7 @@ class ProfilePage extends StatelessWidget {
               ),
               color: Colors.teal,
               onPressed: () {
-                Get.back();
+                Get.to(Home());
               },
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(75, 15, 75, 15),
