@@ -47,6 +47,7 @@ class LogInPage extends StatelessWidget {
                     userName = _input;
                   },
                   decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.person),
                     fillColor: Colors.white,
                     filled: true,
                     enabledBorder: OutlineInputBorder(
@@ -78,6 +79,7 @@ class LogInPage extends StatelessWidget {
                     password = _input;
                   },
                   decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.lock),
                     fillColor: Colors.white,
                     filled: true,
                     enabledBorder: OutlineInputBorder(
@@ -145,7 +147,7 @@ class LogInPage extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
                   child: TextWidet(
                     text: 'Login',
-                    fw: FontWeight.w300,
+                    fw: FontWeight.bold,
                     color: Colors.white,
                     fontSize: 16.0,
                   ),
@@ -154,32 +156,30 @@ class LogInPage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                color: Colors.teal,
-                onPressed: () {
-                  Get.to(() => SignUpPage());
-                },
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(75, 15, 75, 15),
-                  child: TextWidet(
-                    text: 'Signup',
-                    fw: FontWeight.w300,
-                    color: Colors.white,
-                    fontSize: 16.0,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextWidet(
+                      text: 'No Account?',
+                      fw: FontWeight.normal,
+                      color: Colors.black,
+                      fontSize: 12),
+                  TextButton(
+                    onPressed: () {
+                      Get.to(SignUpPage());
+                    },
+                    child: TextWidet(
+                        text: 'Signup now',
+                        fw: FontWeight.bold,
+                        color: Colors.teal,
+                        fontSize: 14),
                   ),
-                ),
+                ],
               ),
               const SizedBox(
-                height: 50,
+                height: 30,
               ),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                color: Colors.teal,
+              TextButton(
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -280,15 +280,11 @@ class LogInPage extends StatelessWidget {
                             ],
                           ));
                 },
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
-                  child: TextWidet(
+                child: TextWidet(
                     text: 'Login as Admin',
-                    fw: FontWeight.w300,
-                    color: Colors.white,
-                    fontSize: 12.0,
-                  ),
-                ),
+                    fw: FontWeight.bold,
+                    color: Colors.teal,
+                    fontSize: 18),
               ),
             ],
           ),
