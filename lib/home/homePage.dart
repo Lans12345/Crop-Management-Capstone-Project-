@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:crop/logIn/logInPage.dart';
 import 'package:crop/webview/crop.dart';
 import 'package:get/get.dart';
 import 'package:crop/widgets/textWidget.dart';
@@ -100,7 +101,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(right: 0),
             child: IconButton(
               onPressed: () {
                 showDialog(
@@ -133,6 +134,53 @@ class _HomeState extends State<Home> {
                 Icons.info_outline_rounded,
                 color: Colors.white,
               ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 0),
+            child: IconButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: const Text(
+                            'Confirmation',
+                            style: TextStyle(
+                                fontFamily: 'Quicksand',
+                                fontWeight: FontWeight.bold),
+                          ),
+                          content: const Text(
+                            'Are you sure you want to Logout?',
+                            style: TextStyle(fontFamily: 'Quicksand'),
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(true);
+                                Get.off(LogInPage());
+                              },
+                              child: const Text(
+                                'Yes',
+                                style: TextStyle(
+                                    fontFamily: 'Quicksand',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(true);
+                              },
+                              child: const Text(
+                                'No',
+                                style: TextStyle(
+                                    fontFamily: 'Quicksand',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ));
+              },
+              icon: const Icon(Icons.logout),
             ),
           ),
         ],
@@ -194,7 +242,7 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.fromLTRB(50, 15, 50, 15),
               child: TextWidet(
                 text: 'Take Picture',
-                fw: FontWeight.w300,
+                fw: FontWeight.bold,
                 color: Colors.white,
                 fontSize: 12.0,
               ),

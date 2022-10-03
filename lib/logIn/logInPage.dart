@@ -24,16 +24,16 @@ class LogInPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 75,
+                height: 50,
               ),
               ImageWidget(imagePath: 'lib/images/logo.png', width: 180),
               const SizedBox(
                 height: 10,
               ),
               TextWidet(
-                  text: 'Crop Management System',
+                  text: 'Crop Management\n    Guide System',
                   fw: FontWeight.bold,
-                  color: Colors.black,
+                  color: Colors.green[800]!,
                   fontSize: 24),
               const SizedBox(
                 height: 20,
@@ -172,7 +172,7 @@ class LogInPage extends StatelessWidget {
                         text: 'Signup now',
                         fw: FontWeight.bold,
                         color: Colors.teal,
-                        fontSize: 14),
+                        fontSize: 15),
                   ),
                 ],
               ),

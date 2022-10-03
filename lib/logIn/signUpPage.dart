@@ -25,6 +25,7 @@ class _SignUpPageState extends State<SignUpPage> {
   late String address = '';
 
   late String gender = 'Male';
+  final List<bool> _isSelected = [true, false];
 
   GetStorage box = GetStorage();
 
@@ -77,6 +78,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   userName = _input;
                 },
                 decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.person),
                   fillColor: Colors.white,
                   filled: true,
                   enabledBorder: OutlineInputBorder(
@@ -108,6 +110,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   password = _input;
                 },
                 decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.lock),
                   fillColor: Colors.white,
                   filled: true,
                   enabledBorder: OutlineInputBorder(
@@ -141,6 +144,7 @@ class _SignUpPageState extends State<SignUpPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
               child: TextFormField(
+                textCapitalization: TextCapitalization.words,
                 style: const TextStyle(
                     color: Colors.black, fontFamily: 'Quicksand'),
                 onChanged: (_input) {
@@ -172,6 +176,7 @@ class _SignUpPageState extends State<SignUpPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
               child: TextFormField(
+                textCapitalization: TextCapitalization.words,
                 style: const TextStyle(
                     color: Colors.black, fontFamily: 'Quicksand'),
                 onChanged: (_input) {
@@ -200,54 +205,32 @@ class _SignUpPageState extends State<SignUpPage> {
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 80, right: 80),
-              child: ClipRRect(
+            ToggleButtons(
                 borderRadius: BorderRadius.circular(5),
-                child: Container(
-                    color: Colors.white,
-                    child: ExpansionTile(
-                      title: const Text(
-                        'Gender',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'Quicksand',
-                          fontSize: 14.0,
-                        ),
-                      ),
-                      children: [
-                        ListTile(
-                          onTap: () {
-                            gender = 'Male';
-                          },
-                          title: const Text(
-                            'Male',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontFamily: 'Quicksand',
-                              fontSize: 12.0,
-                            ),
-                          ),
-                        ),
-                        ListTile(
-                          onTap: () {
-                            setState(() {
-                              gender = 'Female';
-                            });
-                          },
-                          title: const Text(
-                            'Female',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontFamily: 'Quicksand',
-                              fontSize: 12.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
-              ),
-            ),
+                splashColor: Colors.grey,
+                color: Colors.black,
+                selectedColor: Colors.blue,
+                children: const [
+                  Icon(Icons.male),
+                  Icon(Icons.female),
+                ],
+                onPressed: (int newIndex) {
+                  setState(() {
+                    for (int index = 0; index < _isSelected.length; index++) {
+                      if (index == newIndex) {
+                        _isSelected[index] = true;
+                        if (_isSelected[0] == true) {
+                          gender = 'Male';
+                        } else {
+                          gender = 'Female';
+                        }
+                      } else {
+                        _isSelected[index] = false;
+                      }
+                    }
+                  });
+                },
+                isSelected: _isSelected),
             const SizedBox(
               height: 10,
             ),
@@ -363,7 +346,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 padding: const EdgeInsets.fromLTRB(75, 15, 75, 15),
                 child: TextWidet(
                   text: 'Continue',
-                  fw: FontWeight.w300,
+                  fw: FontWeight.bold,
                   color: Colors.white,
                   fontSize: 16.0,
                 ),
