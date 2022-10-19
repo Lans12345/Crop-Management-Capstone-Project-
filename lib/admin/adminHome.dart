@@ -64,7 +64,6 @@ class AdminHome extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  box.write('adminValue', '1');
                   Get.to(RequestPage());
                 },
                 child: Container(
@@ -102,7 +101,6 @@ class AdminHome extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  box.write('adminValue', '2');
                   Get.to(RequestPage());
                 },
                 child: Container(

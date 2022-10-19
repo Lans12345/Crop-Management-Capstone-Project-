@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crop/widgets/textWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class Crop extends StatefulWidget {
   const Crop({Key? key}) : super(key: key);
@@ -80,9 +80,170 @@ class _CropState extends State<Crop> {
           ),
         ],
       ),
-      body: WebView(
-        javascriptMode: JavascriptMode.unrestricted,
-        initialUrl: getUrl(),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+        child: StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection('CROP')
+                .where('type', isEqualTo: box.read('crop'))
+                .snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                print('error');
+                return const Center(child: Text('Error'));
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                print('waiting');
+                return const Padding(
+                  padding: EdgeInsets.only(top: 50),
+                  child: Center(
+                      child: CircularProgressIndicator(
+                    color: Colors.black,
+                  )),
+                );
+              }
+
+              final data = snapshot.requireData;
+              return ListView.builder(
+                itemCount: snapshot.data?.size ?? 0,
+                itemBuilder: ((context, index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.network(data.docs[index]['imageURL']),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextWidet(
+                          text: data.docs[index]['type'],
+                          fw: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 24),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      data.docs[index]['type'] == 'Calabaza'
+                          ? Column(
+                              children: [
+                                TextWidet(
+                                    text: data.docs[index]['detail1'],
+                                    fw: FontWeight.normal,
+                                    color: Colors.grey,
+                                    fontSize: 12),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                TextWidet(
+                                    text: data.docs[index]['detail2'],
+                                    fw: FontWeight.normal,
+                                    color: Colors.grey,
+                                    fontSize: 12),
+                              ],
+                            )
+                          : const SizedBox(),
+                      data.docs[index]['type'] == 'Eggplant'
+                          ? Column(
+                              children: [
+                                TextWidet(
+                                    text: data.docs[index]['detail1'],
+                                    fw: FontWeight.normal,
+                                    color: Colors.grey,
+                                    fontSize: 12),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                TextWidet(
+                                    text: data.docs[index]['detail2'],
+                                    fw: FontWeight.normal,
+                                    color: Colors.grey,
+                                    fontSize: 12),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                TextWidet(
+                                    text: data.docs[index]['detail3'],
+                                    fw: FontWeight.normal,
+                                    color: Colors.grey,
+                                    fontSize: 12),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                TextWidet(
+                                    text: data.docs[index]['detail4'],
+                                    fw: FontWeight.normal,
+                                    color: Colors.grey,
+                                    fontSize: 12),
+                              ],
+                            )
+                          : const SizedBox(),
+                      data.docs[index]['type'] == 'Corn'
+                          ? Column(
+                              children: [
+                                TextWidet(
+                                    text: data.docs[index]['detail1'],
+                                    fw: FontWeight.normal,
+                                    color: Colors.grey,
+                                    fontSize: 12),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                TextWidet(
+                                    text: data.docs[index]['detail2'],
+                                    fw: FontWeight.normal,
+                                    color: Colors.grey,
+                                    fontSize: 12),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                TextWidet(
+                                    text: data.docs[index]['detail3'],
+                                    fw: FontWeight.normal,
+                                    color: Colors.grey,
+                                    fontSize: 12),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                TextWidet(
+                                    text: data.docs[index]['detail4'],
+                                    fw: FontWeight.normal,
+                                    color: Colors.grey,
+                                    fontSize: 12),
+                              ],
+                            )
+                          : Column(
+                              children: [
+                                TextWidet(
+                                    text: data.docs[index]['detail1'],
+                                    fw: FontWeight.normal,
+                                    color: Colors.grey,
+                                    fontSize: 12),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                TextWidet(
+                                    text: data.docs[index]['detail2'],
+                                    fw: FontWeight.normal,
+                                    color: Colors.grey,
+                                    fontSize: 12),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                TextWidet(
+                                    text: data.docs[index]['detail3'],
+                                    fw: FontWeight.normal,
+                                    color: Colors.grey,
+                                    fontSize: 12),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                              ],
+                            )
+                    ],
+                  );
+                }),
+              );
+            }),
       ),
     );
   }

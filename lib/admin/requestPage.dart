@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crop/admin/adminHome.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import '../widgets/imageWidget.dart';
 import '../widgets/textWidget.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +16,6 @@ class _RequestPageState extends State<RequestPage> {
   @override
   void initState() {
     super.initState();
-    req();
   }
 
   Widget sb(double height) {
@@ -26,37 +24,21 @@ class _RequestPageState extends State<RequestPage> {
     );
   }
 
-  req() {
-    if (box.read('adminValue') == '1') {
-      return 'Add Crop Request';
-    } else {
-      return 'Update Crop Details Request';
-    }
-  }
-
-  title() {
-    if (box.read('adminValue') == '1') {
-      return 'Name of Crop to Add';
-    } else {
-      return 'Name of Crop to be Updated';
-    }
-  }
-
-  late String name = '';
-  late String contactNumber = '';
   late String nameOfCrop = '';
-
-  late String reasonOfRequest = '';
+  late String imageURL = '';
+  late String detail1 = '';
+  late String detail2 = '';
+  late String detail3 = '';
 
   Future create() async {
-    final docUser = FirebaseFirestore.instance.collection('REQUEST').doc();
+    final docUser = FirebaseFirestore.instance.collection('CROP').doc();
 
     final json = {
-      'Name': name,
-      'Type of Request': req(),
-      'Contact Number': contactNumber,
-      'Reason of Request': reasonOfRequest,
-      'Name of Crop': nameOfCrop,
+      'type': nameOfCrop,
+      'imageURL': imageURL,
+      'detail1': detail1,
+      'detail2': detail2,
+      'detail3': detail3,
     };
 
     await docUser.set(json);
@@ -68,7 +50,7 @@ class _RequestPageState extends State<RequestPage> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: TextWidet(
-            text: 'Request Page',
+            text: 'Add Crop',
             fw: FontWeight.w300,
             color: Colors.white,
             fontSize: 18.0),
@@ -114,7 +96,20 @@ class _RequestPageState extends State<RequestPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               sb(20),
-              ImageWidget(imagePath: 'lib/images/profile.png', width: 120),
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  color: Colors.teal,
+                  height: 250,
+                  width: 250,
+                  child: const Center(
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
               sb(20),
               Padding(
                 padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
@@ -137,7 +132,7 @@ class _RequestPageState extends State<RequestPage> {
                           const BorderSide(width: 1, color: Colors.black),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    labelText: title(),
+                    labelText: 'Name of Crop',
                     labelStyle: const TextStyle(
                       fontFamily: 'Quicksand',
                       color: Colors.black,
@@ -155,7 +150,7 @@ class _RequestPageState extends State<RequestPage> {
                   style: const TextStyle(
                       color: Colors.black, fontFamily: 'Quicksand'),
                   onChanged: (_input) {
-                    reasonOfRequest = _input;
+                    detail1 = _input;
                   },
                   decoration: InputDecoration(
                     fillColor: Colors.white,
@@ -170,7 +165,7 @@ class _RequestPageState extends State<RequestPage> {
                           const BorderSide(width: 1, color: Colors.black),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    labelText: 'State a Reason',
+                    labelText: 'Crop Detail 1',
                     labelStyle: const TextStyle(
                       fontFamily: 'Quicksand',
                       color: Colors.black,
@@ -179,14 +174,15 @@ class _RequestPageState extends State<RequestPage> {
                   ),
                 ),
               ),
-              sb(10),
               Padding(
                 padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
                 child: TextFormField(
+                  minLines: 3,
+                  maxLines: 3,
                   style: const TextStyle(
                       color: Colors.black, fontFamily: 'Quicksand'),
                   onChanged: (_input) {
-                    name = _input;
+                    detail2 = _input;
                   },
                   decoration: InputDecoration(
                     fillColor: Colors.white,
@@ -201,7 +197,7 @@ class _RequestPageState extends State<RequestPage> {
                           const BorderSide(width: 1, color: Colors.black),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    labelText: 'Name',
+                    labelText: 'Crop Detail 2',
                     labelStyle: const TextStyle(
                       fontFamily: 'Quicksand',
                       color: Colors.black,
@@ -210,16 +206,15 @@ class _RequestPageState extends State<RequestPage> {
                   ),
                 ),
               ),
-              sb(10),
               Padding(
                 padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
                 child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  maxLength: 11,
+                  minLines: 3,
+                  maxLines: 3,
                   style: const TextStyle(
                       color: Colors.black, fontFamily: 'Quicksand'),
                   onChanged: (_input) {
-                    contactNumber = _input;
+                    detail3 = _input;
                   },
                   decoration: InputDecoration(
                     fillColor: Colors.white,
@@ -234,7 +229,7 @@ class _RequestPageState extends State<RequestPage> {
                           const BorderSide(width: 1, color: Colors.black),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    labelText: 'Contact Number',
+                    labelText: 'Crop Detail 3',
                     labelStyle: const TextStyle(
                       fontFamily: 'Quicksand',
                       color: Colors.black,
