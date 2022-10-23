@@ -1,3 +1,4 @@
+import 'package:crop/admin/addCrop.dart';
 import 'package:crop/admin/requestPage.dart';
 import 'package:crop/logIn/logInPage.dart';
 import 'package:crop/widgets/textWidget.dart';
@@ -13,6 +14,7 @@ class AdminHome extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.grey[100],
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: TextWidet(
               text: 'Admin Panel',
               fw: FontWeight.w300,
@@ -64,7 +66,7 @@ class AdminHome extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.to(RequestPage());
+                  Get.to(AddCrop());
                 },
                 child: Container(
                   height: 250,
