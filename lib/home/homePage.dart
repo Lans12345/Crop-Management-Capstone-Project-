@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'package:crop/logIn/logInPage.dart';
-import 'package:crop/webview/crop.dart';
+import 'package:crop/screens/result_page.dart';
 import 'package:get/get.dart';
 import 'package:crop/widgets/textWidget.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tflite/tflite.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 import 'package:get_storage/get_storage.dart';
-import '../profile/profilePage.dart';
+
+import '../widgets/drawer_widget.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -33,8 +33,9 @@ class _HomeState extends State<Home> {
 
   GetStorage box = GetStorage();
 
-  getImageCamera() async {
-    var tempStore = await ImagePicker().getImage(source: ImageSource.camera);
+  getImageCamera(String imgsrc) async {
+    var tempStore = await ImagePicker().getImage(
+        source: imgsrc == 'camera' ? ImageSource.camera : ImageSource.gallery);
 
     setState(() {
       pickedImage = File(tempStore!.path);
@@ -66,10 +67,11 @@ class _HomeState extends State<Home> {
       accuracy = result != null
           ? (result[0]['confidence'] * 100.0).toString().substring(0, 2) + '%'
           : '';
-      tts.speak('Image Scanned $name');
-      box.write('crop', name);
-      Get.to(const Crop());
     });
+    tts.speak('Image Scanned $name');
+    box.write('crop', name);
+    await Future.delayed(const Duration(seconds: 5));
+    Get.to(const ResultPage());
   }
 
   @override
@@ -83,172 +85,151 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const MyDrawer(),
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
+        centerTitle: true,
         title: TextWidet(
-            text: 'Home Page',
-            fw: FontWeight.w300,
+            text: 'Home',
+            fw: FontWeight.bold,
             color: Colors.white,
             fontSize: 24.0),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 0),
-            child: IconButton(
-              onPressed: () {
-                Get.off(ProfilePage());
-              },
-              icon: const Icon(Icons.person),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 0),
-            child: IconButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                          title: const Text(
-                            'List of Crops Available',
-                            style: TextStyle(fontFamily: 'Quicksand'),
-                          ),
-                          content: const Text(
-                            'Calabasa, Corn, Eggplant',
-                            style: TextStyle(fontFamily: 'Quicksand'),
-                          ),
-                          actions: <Widget>[
-                            FlatButton(
-                              onPressed: () {
-                                Navigator.of(context).pop(true);
-                              },
-                              child: const Text(
-                                'Close',
-                                style: TextStyle(
-                                    fontFamily: 'Quicksand',
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ));
-              },
-              icon: const Icon(
-                Icons.info_outline_rounded,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 0),
-            child: IconButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                          title: const Text(
-                            'Confirmation',
-                            style: TextStyle(
-                                fontFamily: 'Quicksand',
-                                fontWeight: FontWeight.bold),
-                          ),
-                          content: const Text(
-                            'Are you sure you want to Logout?',
-                            style: TextStyle(fontFamily: 'Quicksand'),
-                          ),
-                          actions: <Widget>[
-                            FlatButton(
-                              onPressed: () {
-                                Navigator.of(context).pop(true);
-                                Get.off(LogInPage());
-                              },
-                              child: const Text(
-                                'Yes',
-                                style: TextStyle(
-                                    fontFamily: 'Quicksand',
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            FlatButton(
-                              onPressed: () {
-                                Navigator.of(context).pop(true);
-                              },
-                              child: const Text(
-                                'No',
-                                style: TextStyle(
-                                    fontFamily: 'Quicksand',
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ));
-              },
-              icon: const Icon(Icons.logout),
-            ),
-          ),
-        ],
       ),
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          isImageLoaded
-              ? Center(
+          child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            isImageLoaded
+                ? Center(
+                    child: Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Container(
+                      height: 450,
+                      width: 330,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: FileImage(
+                                pickedImage,
+                              ),
+                              fit: BoxFit.cover)),
+                    ),
+                  ))
+                : SizedBox(
+                    height: 350,
+                    child: TextWidet(
+                        text: 'Select Image',
+                        fw: FontWeight.w300,
+                        color: Colors.black,
+                        fontSize: 18.0),
+                  ),
+            const SizedBox(
+              height: 5,
+            ),
+            TextWidet(
+              text: 'Result: $name',
+              fw: FontWeight.bold,
+              color: Colors.black,
+              fontSize: 18.0,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            TextWidet(
+              text: 'Accuracy: $accuracy',
+              fw: FontWeight.w100,
+              color: Colors.black,
+              fontSize: 12.0,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextWidet(
+              text: 'Take an Image',
+              fw: FontWeight.normal,
+              color: Colors.black,
+              fontSize: 12.0,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    getImageCamera('camera');
+                  },
                   child: Container(
-                  height: 450,
-                  width: 330,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: FileImage(
-                            pickedImage,
-                          ),
-                          fit: BoxFit.cover)),
-                ))
-              : SizedBox(
-                  height: 350,
-                  child: TextWidet(
-                      text: 'Select Image',
-                      fw: FontWeight.w300,
-                      color: Colors.black,
-                      fontSize: 18.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.camera,
+                          color: Colors.black45,
+                          size: 28,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextWidet(
+                          text: 'Camera',
+                          fw: FontWeight.normal,
+                          color: Colors.black45,
+                          fontSize: 12.0,
+                        ),
+                      ],
+                    ),
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      color: const Color(0xffCEE5D0),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                 ),
-          const SizedBox(
-            height: 5,
-          ),
-          TextWidet(
-            text: 'Result: $name',
-            fw: FontWeight.bold,
-            color: Colors.black,
-            fontSize: 18.0,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          TextWidet(
-            text: 'Accuracy: $accuracy',
-            fw: FontWeight.w100,
-            color: Colors.black,
-            fontSize: 12.0,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          RaisedButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5),
+                const SizedBox(
+                  width: 10,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    getImageCamera('gallery');
+                  },
+                  child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.photo,
+                          color: Colors.black45,
+                          size: 28,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextWidet(
+                          text: 'Gallery',
+                          fw: FontWeight.normal,
+                          color: Colors.black45,
+                          fontSize: 12.0,
+                        ),
+                      ],
+                    ),
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      color: const Color(0xffCEE5D0),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            color: Colors.teal,
-            onPressed: () {
-              getImageCamera();
-            },
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(50, 15, 50, 15),
-              child: TextWidet(
-                text: 'Take Picture',
-                fw: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 12.0,
-              ),
-            ),
-          ),
-        ],
+            const SizedBox(height: 20),
+          ],
+        ),
       )),
     );
   }

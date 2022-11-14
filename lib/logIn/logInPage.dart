@@ -1,4 +1,3 @@
-import 'package:crop/admin/adminHome.dart';
 import 'package:crop/home/homePage.dart';
 import 'package:crop/logIn/signUpPage.dart';
 import 'package:crop/widgets/imageWidget.dart';
@@ -149,7 +148,7 @@ class LogInPage extends StatelessWidget {
                     text: 'Login',
                     fw: FontWeight.bold,
                     color: Colors.white,
-                    fontSize: 16.0,
+                    fontSize: 18.0,
                   ),
                 ),
               ),
@@ -179,113 +178,113 @@ class LogInPage extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              TextButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: const Text(
-                              'Logging in as Admin',
-                              style: TextStyle(fontFamily: 'Quicksand'),
-                            ),
-                            content: Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              child: TextFormField(
-                                obscureText: true,
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'Quicksand'),
-                                onChanged: (_input) {
-                                  admin = _input;
-                                },
-                                decoration: InputDecoration(
-                                  suffixIcon: const Icon(Icons.lock),
-                                  fillColor: Colors.grey[100],
-                                  filled: true,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        width: 1, color: Colors.white),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        width: 1, color: Colors.black),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  labelText: 'Admin Password',
-                                  labelStyle: const TextStyle(
-                                    fontFamily: 'Quicksand',
-                                    color: Colors.black,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            actions: <Widget>[
-                              FlatButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(true);
-                                  if (admin == 'admin123') {
-                                    Get.to(AdminHome());
-                                  } else {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                              title: const Text(
-                                                'Error',
-                                                style: TextStyle(
-                                                    fontFamily: 'Quicksand'),
-                                              ),
-                                              content: const Text(
-                                                'Invalid Password',
-                                                style: TextStyle(
-                                                    fontFamily: 'Quicksand'),
-                                              ),
-                                              actions: <Widget>[
-                                                FlatButton(
-                                                  onPressed: () {
-                                                    Navigator.of(context)
-                                                        .pop(true);
-                                                  },
-                                                  child: const Text(
-                                                    'Close',
-                                                    style: TextStyle(
-                                                        fontFamily: 'Quicksand',
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ),
-                                              ],
-                                            ));
-                                  }
-                                },
-                                child: const Text(
-                                  'Continue',
-                                  style: TextStyle(
-                                      fontFamily: 'Quicksand',
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              FlatButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(true);
-                                },
-                                child: const Text(
-                                  'Close',
-                                  style: TextStyle(
-                                      fontFamily: 'Quicksand',
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ],
-                          ));
-                },
-                child: TextWidet(
-                    text: 'Login as Admin',
-                    fw: FontWeight.bold,
-                    color: Colors.teal,
-                    fontSize: 18),
-              ),
+              // TextButton(
+              //   onPressed: () {
+              //     showDialog(
+              //         context: context,
+              //         builder: (context) => AlertDialog(
+              //               title: const Text(
+              //                 'Logging in as Admin',
+              //                 style: TextStyle(fontFamily: 'Quicksand'),
+              //               ),
+              //               content: Padding(
+              //                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              //                 child: TextFormField(
+              //                   obscureText: true,
+              //                   style: const TextStyle(
+              //                       color: Colors.black,
+              //                       fontFamily: 'Quicksand'),
+              //                   onChanged: (_input) {
+              //                     admin = _input;
+              //                   },
+              //                   decoration: InputDecoration(
+              //                     suffixIcon: const Icon(Icons.lock),
+              //                     fillColor: Colors.grey[100],
+              //                     filled: true,
+              //                     enabledBorder: OutlineInputBorder(
+              //                       borderSide: const BorderSide(
+              //                           width: 1, color: Colors.white),
+              //                       borderRadius: BorderRadius.circular(5),
+              //                     ),
+              //                     focusedBorder: OutlineInputBorder(
+              //                       borderSide: const BorderSide(
+              //                           width: 1, color: Colors.black),
+              //                       borderRadius: BorderRadius.circular(5),
+              //                     ),
+              //                     labelText: 'Admin Password',
+              //                     labelStyle: const TextStyle(
+              //                       fontFamily: 'Quicksand',
+              //                       color: Colors.black,
+              //                       fontSize: 12.0,
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //               actions: <Widget>[
+              //                 FlatButton(
+              //                   onPressed: () {
+              //                     Navigator.of(context).pop(true);
+              //                     if (admin == 'admin123') {
+              //                       Get.to(AdminHome());
+              //                     } else {
+              //                       showDialog(
+              //                           context: context,
+              //                           builder: (context) => AlertDialog(
+              //                                 title: const Text(
+              //                                   'Error',
+              //                                   style: TextStyle(
+              //                                       fontFamily: 'Quicksand'),
+              //                                 ),
+              //                                 content: const Text(
+              //                                   'Invalid Password',
+              //                                   style: TextStyle(
+              //                                       fontFamily: 'Quicksand'),
+              //                                 ),
+              //                                 actions: <Widget>[
+              //                                   FlatButton(
+              //                                     onPressed: () {
+              //                                       Navigator.of(context)
+              //                                           .pop(true);
+              //                                     },
+              //                                     child: const Text(
+              //                                       'Close',
+              //                                       style: TextStyle(
+              //                                           fontFamily: 'Quicksand',
+              //                                           fontWeight:
+              //                                               FontWeight.bold),
+              //                                     ),
+              //                                   ),
+              //                                 ],
+              //                               ));
+              //                     }
+              //                   },
+              //                   child: const Text(
+              //                     'Continue',
+              //                     style: TextStyle(
+              //                         fontFamily: 'Quicksand',
+              //                         fontWeight: FontWeight.bold),
+              //                   ),
+              //                 ),
+              //                 FlatButton(
+              //                   onPressed: () {
+              //                     Navigator.of(context).pop(true);
+              //                   },
+              //                   child: const Text(
+              //                     'Close',
+              //                     style: TextStyle(
+              //                         fontFamily: 'Quicksand',
+              //                         fontWeight: FontWeight.bold),
+              //                   ),
+              //                 ),
+              //               ],
+              //             ));
+              //   },
+              //   child: TextWidet(
+              //       text: 'Login as Admin',
+              //       fw: FontWeight.bold,
+              //       color: Colors.teal,
+              //       fontSize: 18),
+              // ),
             ],
           ),
         ),
