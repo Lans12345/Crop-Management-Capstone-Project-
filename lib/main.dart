@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Crop Management App',
+      title: 'Crop Management System',
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
