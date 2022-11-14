@@ -153,7 +153,7 @@ class LogInPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 50,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

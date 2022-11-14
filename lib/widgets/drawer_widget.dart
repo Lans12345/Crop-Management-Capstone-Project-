@@ -1,6 +1,7 @@
 import 'package:crop/home/homePage.dart';
 import 'package:crop/profile/profilePage.dart';
 import 'package:crop/screens/hotline_page.dart';
+import 'package:crop/webview/hotlines.dart';
 import 'package:crop/widgets/textWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -83,8 +84,8 @@ class _MyDrawerState extends State<MyDrawer> {
                 color: Colors.grey,
               ),
               onTap: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const HotlinePage()));
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const Hotlines()));
               },
             ),
             ListTile(
