@@ -1,3 +1,5 @@
 0 Corn
-1 Calabaza
-2 Eggplant
+1 Eggplant
+2 Calabasa
+3 Cabbage
+4 Potatoe
