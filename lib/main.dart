@@ -1,5 +1,5 @@
 import 'package:crop/firebase_options.dart';
-import 'package:crop/screens/result_page.dart';
+import 'package:crop/loading_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: ResultPage(),
+      home: LoadingScreenToLogIn(),
     );
   }
 }
