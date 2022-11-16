@@ -86,7 +86,7 @@ class ResultPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset('lib/images/b1.jpg'),
+                      Image.network(data.docs[0]['pic']),
                       const SizedBox(
                         height: 20,
                       ),
@@ -95,7 +95,7 @@ class ResultPage extends StatelessWidget {
                         child: Row(
                           children: [
                             TextWidet(
-                                text: 'Corn',
+                                text: data.docs[0]['name'],
                                 fw: FontWeight.bold,
                                 color: Colors.black,
                                 fontSize: 32),
@@ -103,7 +103,7 @@ class ResultPage extends StatelessWidget {
                               width: 20,
                             ),
                             TextWidet(
-                                text: '(Scientific name)',
+                                text: data.docs[0]['sci_name'],
                                 fw: FontWeight.w300,
                                 color: Colors.grey,
                                 fontSize: 14),
@@ -140,8 +140,7 @@ class ResultPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: TextWidet(
-                            text:
-                                'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
+                            text: data.docs[0]['details'],
                             fw: FontWeight.normal,
                             color: Colors.grey,
                             fontSize: 14),
@@ -176,8 +175,7 @@ class ResultPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: TextWidet(
-                            text:
-                                'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
+                            text: data.docs[0]['how_plant'],
                             fw: FontWeight.normal,
                             color: Colors.grey,
                             fontSize: 14),
@@ -212,8 +210,7 @@ class ResultPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: TextWidet(
-                            text:
-                                'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
+                            text: data.docs[0]['how_grow'],
                             fw: FontWeight.normal,
                             color: Colors.grey,
                             fontSize: 14),
@@ -248,8 +245,7 @@ class ResultPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: TextWidet(
-                            text:
-                                'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
+                            text: data.docs[0]['harvest'],
                             fw: FontWeight.normal,
                             color: Colors.grey,
                             fontSize: 14),
@@ -275,6 +271,8 @@ class ResultPage extends StatelessWidget {
                           ],
                         ),
                       ),
+                      Image.network(data.docs[0]['pest1']),
+                      Image.network(data.docs[0]['pest2']),
                       const SizedBox(
                         height: 30,
                       ),
