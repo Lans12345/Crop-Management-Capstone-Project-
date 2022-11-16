@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
     tts.speak('Image Scanned $name');
     box.write('crop', name);
     await Future.delayed(const Duration(seconds: 5));
-    Get.to(const ResultPage());
+    Get.to(ResultPage());
   }
 
   @override

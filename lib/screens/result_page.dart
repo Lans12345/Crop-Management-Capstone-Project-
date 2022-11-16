@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../widgets/textWidget.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({Key? key}) : super(key: key);
+  ResultPage({Key? key}) : super(key: key);
+
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -54,221 +58,230 @@ class ResultPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset('lib/images/b1.jpg'),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Row(
+          child: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('CROP')
+                  .where('name', isEqualTo: box.read('crop'))
+                  .snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  print('error');
+                  return const Center(child: Text('Error'));
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  print('waiting');
+                  return const Padding(
+                    padding: EdgeInsets.only(top: 50),
+                    child: Center(
+                        child: CircularProgressIndicator(
+                      color: Colors.black,
+                    )),
+                  );
+                }
+
+                final data = snapshot.requireData;
+                return Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextWidet(
-                          text: 'Corn',
-                          fw: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 32),
+                      Image.asset('lib/images/b1.jpg'),
                       const SizedBox(
-                        width: 20,
+                        height: 20,
                       ),
-                      TextWidet(
-                          text: '(Scientific name)',
-                          fw: FontWeight.w300,
-                          color: Colors.grey,
-                          fontSize: 14),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Row(
+                          children: [
+                            TextWidet(
+                                text: 'Corn',
+                                fw: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 32),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            TextWidet(
+                                text: '(Scientific name)',
+                                fw: FontWeight.w300,
+                                color: Colors.grey,
+                                fontSize: 14),
+                          ],
+                        ),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Row(
+                          children: [
+                            TextWidet(
+                                text: 'Details',
+                                fw: FontWeight.normal,
+                                color: Colors.black,
+                                fontSize: 18),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Icon(
+                              Icons.info_outline_rounded,
+                              color: Colors.grey,
+                              size: 18,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: TextWidet(
+                            text:
+                                'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
+                            fw: FontWeight.normal,
+                            color: Colors.grey,
+                            fontSize: 14),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Row(
+                          children: [
+                            TextWidet(
+                                text: 'How to plant Corn',
+                                fw: FontWeight.normal,
+                                color: Colors.black,
+                                fontSize: 18),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Icon(
+                              Icons.info_outline_rounded,
+                              color: Colors.grey,
+                              size: 18,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: TextWidet(
+                            text:
+                                'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
+                            fw: FontWeight.normal,
+                            color: Colors.grey,
+                            fontSize: 14),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Row(
+                          children: [
+                            TextWidet(
+                                text: 'How to grow Corn',
+                                fw: FontWeight.normal,
+                                color: Colors.black,
+                                fontSize: 18),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Icon(
+                              Icons.info_outline_rounded,
+                              color: Colors.grey,
+                              size: 18,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: TextWidet(
+                            text:
+                                'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
+                            fw: FontWeight.normal,
+                            color: Colors.grey,
+                            fontSize: 14),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Row(
+                          children: [
+                            TextWidet(
+                                text: "Harvesting",
+                                fw: FontWeight.normal,
+                                color: Colors.black,
+                                fontSize: 18),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Icon(
+                              Icons.info_outline_rounded,
+                              color: Colors.grey,
+                              size: 18,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: TextWidet(
+                            text:
+                                'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
+                            fw: FontWeight.normal,
+                            color: Colors.grey,
+                            fontSize: 14),
+                      ),
+                      const Divider(),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Row(
+                          children: [
+                            TextWidet(
+                                text: "Pest's",
+                                fw: FontWeight.normal,
+                                color: Colors.black,
+                                fontSize: 18),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Icon(
+                              Icons.info_outline_rounded,
+                              color: Colors.grey,
+                              size: 18,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
                     ],
                   ),
-                ),
-                const Divider(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Row(
-                    children: [
-                      TextWidet(
-                          text: 'Details',
-                          fw: FontWeight.normal,
-                          color: Colors.black,
-                          fontSize: 18),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const Icon(
-                        Icons.info_outline_rounded,
-                        color: Colors.grey,
-                        size: 18,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: TextWidet(
-                      text:
-                          'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-                      fw: FontWeight.normal,
-                      color: Colors.grey,
-                      fontSize: 14),
-                ),
-                const Divider(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Row(
-                    children: [
-                      TextWidet(
-                          text: 'How to plant Corn',
-                          fw: FontWeight.normal,
-                          color: Colors.black,
-                          fontSize: 18),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const Icon(
-                        Icons.info_outline_rounded,
-                        color: Colors.grey,
-                        size: 18,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: TextWidet(
-                      text:
-                          'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-                      fw: FontWeight.normal,
-                      color: Colors.grey,
-                      fontSize: 14),
-                ),
-                const Divider(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Row(
-                    children: [
-                      TextWidet(
-                          text: 'How to grow Corn',
-                          fw: FontWeight.normal,
-                          color: Colors.black,
-                          fontSize: 18),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const Icon(
-                        Icons.info_outline_rounded,
-                        color: Colors.grey,
-                        size: 18,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: TextWidet(
-                      text:
-                          'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-                      fw: FontWeight.normal,
-                      color: Colors.grey,
-                      fontSize: 14),
-                ),
-                const Divider(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Row(
-                    children: [
-                      TextWidet(
-                          text: "Do's and Dont's",
-                          fw: FontWeight.normal,
-                          color: Colors.black,
-                          fontSize: 18),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const Icon(
-                        Icons.info_outline_rounded,
-                        color: Colors.grey,
-                        size: 18,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: TextWidet(
-                      text:
-                          'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-                      fw: FontWeight.normal,
-                      color: Colors.grey,
-                      fontSize: 14),
-                ),
-                const Divider(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Row(
-                    children: [
-                      TextWidet(
-                          text: 'Extra Information',
-                          fw: FontWeight.normal,
-                          color: Colors.black,
-                          fontSize: 14),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const Icon(
-                        Icons.info_outline_rounded,
-                        color: Colors.grey,
-                        size: 14,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: TextWidet(
-                      text:
-                          'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-                      fw: FontWeight.normal,
-                      color: Colors.grey,
-                      fontSize: 12),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-              ],
-            ),
-          ),
+                );
+              }),
         ),
       ),
     );
