@@ -40,7 +40,7 @@ class ProfilePage extends StatelessWidget {
                           style: TextStyle(fontFamily: 'QRegular'),
                         ),
                         actions: <Widget>[
-                          FlatButton(
+                          MaterialButton(
                             onPressed: () => Navigator.of(context).pop(true),
                             child: const Text(
                               'Close',
@@ -49,7 +49,7 @@ class ProfilePage extends StatelessWidget {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                          FlatButton(
+                          MaterialButton(
                             onPressed: () {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(

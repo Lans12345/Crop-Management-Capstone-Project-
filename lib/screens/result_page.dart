@@ -34,7 +34,7 @@ class ResultPage extends StatelessWidget {
                             style: TextStyle(fontFamily: 'Quicksand'),
                           ),
                           actions: <Widget>[
-                            FlatButton(
+                            MaterialButton(
                               onPressed: () {
                                 Navigator.of(context).pop(true);
                               },

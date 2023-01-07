@@ -58,7 +58,7 @@ class _CropState extends State<Crop> {
                             style: TextStyle(fontFamily: 'Quicksand'),
                           ),
                           actions: <Widget>[
-                            FlatButton(
+                            MaterialButton(
                               onPressed: () {
                                 Navigator.of(context).pop(true);
                               },

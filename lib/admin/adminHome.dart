@@ -34,7 +34,7 @@ class AdminHome extends StatelessWidget {
                               style: TextStyle(fontFamily: 'Quicksand'),
                             ),
                             actions: <Widget>[
-                              FlatButton(
+                              MaterialButton(
                                 onPressed: () {
                                   Navigator.of(context).pop(true);
                                 },
@@ -138,7 +138,7 @@ class AdminHome extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              RaisedButton(
+              MaterialButton(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),

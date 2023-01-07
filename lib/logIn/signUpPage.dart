@@ -299,7 +299,7 @@ class _SignUpPageState extends State<SignUpPage> {
             const SizedBox(
               height: 10,
             ),
-            RaisedButton(
+            MaterialButton(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
@@ -319,7 +319,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             style: TextStyle(fontFamily: 'Quicksand'),
                           ),
                           actions: <Widget>[
-                            FlatButton(
+                            MaterialButton(
                               onPressed: () {
                                 Navigator.of(context).pop(true);
                                 box.write('userName', userName);
