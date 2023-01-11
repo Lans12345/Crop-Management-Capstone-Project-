@@ -69,9 +69,15 @@ class _HomeState extends State<Home> {
           : '';
     });
     tts.speak('Image Scanned $name');
-    box.write('crop', name);
-    await Future.delayed(const Duration(seconds: 5));
-    Get.to(ResultPage());
+    if (name == 'Grass') {
+      await Future.delayed(const Duration(seconds: 2));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Grass is detected! Try scanning again')));
+    } else {
+      box.write('crop', name);
+      await Future.delayed(const Duration(seconds: 5));
+      Get.to(ResultPage());
+    }
   }
 
   @override
